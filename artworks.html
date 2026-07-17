@@ -14,7 +14,7 @@
     margin: 18px 0;
     text-align: center;
   }
-  .artcard img { border: 4px solid #000000; background-color: #000; }
+  .artcard img { border: 4px solid #000000; background-color: #000; max-width: 100%; height: auto; }
   .arttitle {
     font-family: "Comic Sans MS", cursive, sans-serif;
     color: #ffcc00;
@@ -23,16 +23,6 @@
     margin-top: 10px;
   }
   .artby { color: #cc99ff; font-style: italic; }
-  .addform label { font-weight: bold; color: #66ff66; }
-  .addform input[type=text], .addform input[type=file] {
-    font-family: inherit; margin-top: 4px;
-  }
-  .delbtn {
-    font-family: Arial, sans-serif; font-size: 11px; color: #ffffff;
-    background-color: #990000; border: 2px outset #ff6666;
-    padding: 2px 8px; cursor: pointer; margin-top: 8px;
-  }
-  .delbtn:hover { background-color: #cc0000; }
 </style>
 </head>
 <body>
@@ -77,34 +67,24 @@
     <hr class="fancy">
 
     <h2 class="center">&#128444; The Gallery &#128444;</h2>
-    <div id="gallery"></div>
+
+    <!--
+      ============================================================
+      HOW TO ADD A NEW ART PIECE:
+        1. Put the image file in the "images/" folder of this repo.
+        2. Copy one "artcard" block below and paste it at the top of
+           the gallery (right under this comment).
+        3. Change the image filename, the title, and the artist.
+      ============================================================
+    -->
+
+    <div class="artcard">
+      <img src="images/artwork-river.jpg" alt="God's Happy Little River" width="600">
+      <div class="arttitle">&#10022; God's Happy Little River</div>
+      <div class="artby">by Rev. Marius Schmitz</div>
+    </div>
 
     <hr class="fancy">
-
-    <!-- ===== ADD ARTWORK ===== -->
-    <div class="goldbox addform">
-      <h3 class="center">&#10133; Add A New Art Piece &#10133;</h3>
-      <form onsubmit="return addArt(event)">
-        <p>
-          <label>Title of the piece:</label><br>
-          <input type="text" id="art-title" size="34" maxlength="80" placeholder="e.g. Sunset Over Zion">
-        </p>
-        <p>
-          <label>Artist:</label><br>
-          <input type="text" id="art-artist" size="34" maxlength="60" value="Rev. Marius Schmitz">
-        </p>
-        <p>
-          <label>Choose an image:</label><br>
-          <input type="file" id="art-file" accept="image/*">
-        </p>
-        <p class="center">
-          <input type="submit" class="btn" value="&#127912; Add To Gallery &#127912;">
-        </p>
-      </form>
-      <p class="center"><font size="2" color="#cc99ff"><i>
-        Pieces you add are saved in your own browser so you can build your gallery.
-      </i></font></p>
-    </div>
 
     <div class="center">
       <a href="index.html" class="btn">&#8962; Back To Home &#8962;</a>
@@ -130,81 +110,6 @@
   </div>
 
 </div>
-
-<script type="text/javascript">
-  // Permanent, built-in pieces (always shown, cannot be deleted)
-  var FIXED = [
-    { src: "images/artwork-river.jpg", title: "God's Happy Little River", artist: "Rev. Marius Schmitz" }
-  ];
-
-  function esc(s) {
-    return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;")
-      .replace(/>/g, "&gt;").replace(/"/g, "&quot;");
-  }
-
-  function loadUser() {
-    try { return JSON.parse(localStorage.getItem("chapel_artworks") || "[]"); }
-    catch (e) { return []; }
-  }
-  function saveUser(list) {
-    try { localStorage.setItem("chapel_artworks", JSON.stringify(list)); return true; }
-    catch (e) { return false; }
-  }
-
-  function card(piece, delIndex) {
-    var html = '<div class="artcard">'
-      + '<img src="' + piece.src + '" alt="' + esc(piece.title) + '" width="600">'
-      + '<div class="arttitle">&#10022; ' + esc(piece.title) + '</div>'
-      + '<div class="artby">by ' + esc(piece.artist || "Rev. Marius Schmitz") + '</div>';
-    if (typeof delIndex === "number") {
-      html += '<br><button class="delbtn" onclick="removeArt(' + delIndex + ')">Remove this piece</button>';
-    }
-    html += '</div>';
-    return html;
-  }
-
-  function render() {
-    var user = loadUser();
-    var html = "";
-    // User's newest additions first, then the permanent collection
-    for (var i = 0; i < user.length; i++) { html += card(user[i], i); }
-    for (var j = 0; j < FIXED.length; j++) { html += card(FIXED[j]); }
-    document.getElementById("gallery").innerHTML = html;
-  }
-
-  function removeArt(index) {
-    var user = loadUser();
-    user.splice(index, 1);
-    saveUser(user);
-    render();
-  }
-
-  function addArt(ev) {
-    ev.preventDefault();
-    var title = document.getElementById("art-title").value.trim();
-    var artist = document.getElementById("art-artist").value.trim();
-    var fileInput = document.getElementById("art-file");
-    if (!title) { alert("Please give your art piece a title!"); return false; }
-    if (!fileInput.files || !fileInput.files[0]) { alert("Please choose an image file!"); return false; }
-    var reader = new FileReader();
-    reader.onload = function (e) {
-      var user = loadUser();
-      user.unshift({ src: e.target.result, title: title, artist: artist });
-      if (!saveUser(user)) {
-        alert("Sorry, that image is a bit too large for your browser's storage. Try a smaller image!");
-        return;
-      }
-      document.getElementById("art-title").value = "";
-      document.getElementById("art-file").value = "";
-      render();
-      alert("Your art piece has been added to the gallery. God bless your creativity!");
-    };
-    reader.readAsDataURL(fileInput.files[0]);
-    return false;
-  }
-
-  render();
-</script>
 
 </body>
 </html>
