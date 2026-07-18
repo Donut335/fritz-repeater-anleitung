@@ -59,7 +59,7 @@
         </p>
       </form>
       <p class="center"><font size="2" color="#cc99ff"><i>
-        (Your blessing is sent privately to the Reverend &mdash; and shown below for you!)
+        (Your blessing is sent to Reverend Marius for his review before it is posted.)
       </i></font></p>
     </div>
 
@@ -86,7 +86,7 @@
       </font>
     </p>
     <p>
-      <a href="mailto:reverend@shepherdschapel.example">&#9993; Email the Reverend</a> |
+      <a href="mailto:Rev.MariusSchmitz@gmail.com">&#9993; Email the Reverend</a> |
       <a href="index.html">&#8962; Home</a>
     </p>
   </div>
@@ -94,17 +94,11 @@
 </div>
 
 <script type="text/javascript">
-  // ============================================================
-  //  GUESTBOOK EMAIL DELIVERY (Formspree)
-  //  Your email is NOT stored here. Only this form ID is, and it
-  //  means nothing on its own. To turn on email delivery:
-  //    1. Sign up free at https://formspree.io
-  //    2. Create a new form (point it at your own email).
-  //    3. Copy the form's endpoint (looks like the line below)
-  //       and paste your real form ID in place of YOUR_FORM_ID.
-  //  Until then, the guestbook still works (entries show below).
-  // ============================================================
-  var FORM_ENDPOINT = "https://formspree.io/f/YOUR_FORM_ID";
+  // Guestbook entries are emailed to Reverend Marius for review before
+  // being posted. Delivery uses FormSubmit (no account needed). On the
+  // very first submission FormSubmit sends one confirmation email to the
+  // address below; the Reverend clicks it once to activate delivery.
+  var FORM_ENDPOINT = "https://formsubmit.co/ajax/Rev.MariusSchmitz@gmail.com";
 
   var SAMPLE = [
     { name: "Markus", city: "Ladenburg", msg: "I have found the true meaning of the holy Spirit through Reverend Marius Schmitz. Blessed be the children of the Lord." },
@@ -118,22 +112,10 @@
       .replace(/>/g, "&gt;").replace(/"/g, "&quot;");
   }
 
-  function load() {
-    try { return JSON.parse(localStorage.getItem("chapel_guestbook") || "[]"); }
-    catch (e) { return []; }
-  }
-
-  function save(list) {
-    try { localStorage.setItem("chapel_guestbook", JSON.stringify(list)); }
-    catch (e) { /* browser storage unavailable */ }
-  }
-
   function render() {
-    var user = load();
-    var all = user.concat(SAMPLE);
     var html = "";
-    for (var i = 0; i < all.length; i++) {
-      var e = all[i];
+    for (var i = 0; i < SAMPLE.length; i++) {
+      var e = SAMPLE[i];
       html += '<div class="goldbox">'
         + '<b><font color="#ffcc00">&#10022; ' + esc(e.name || "A Friend") + '</font></b>'
         + (e.city ? ' <font size="2" color="#cc99ff">from ' + esc(e.city) + '</font>' : '')
@@ -150,30 +132,28 @@
     var msg = document.getElementById("gb-msg").value.trim();
     if (!msg) { alert("Please leave a message before signing!"); return false; }
 
-    // Show the entry right away for the visitor (retro guestbook feel)
-    var list = load();
-    list.unshift({ name: name, city: city, msg: msg });
-    save(list);
-    document.getElementById("gb-name").value = "";
-    document.getElementById("gb-city").value = "";
-    document.getElementById("gb-msg").value = "";
-    render();
-
-    // Email the entry to the Reverend via Formspree (if configured)
-    if (FORM_ENDPOINT.indexOf("YOUR_FORM_ID") === -1 && window.fetch) {
+    // Email the entry to Reverend Marius for review before it is posted
+    if (window.fetch) {
       fetch(FORM_ENDPOINT, {
         method: "POST",
         headers: { "Accept": "application/json", "Content-Type": "application/json" },
         body: JSON.stringify({
-          name: name || "A Friend",
-          "visiting from": city,
-          message: msg,
-          _subject: "New Shepherd's Chapel Guestbook Entry"
+          Name: name || "A Friend",
+          "Visiting from": city || "(not given)",
+          Message: msg,
+          _subject: "New Shepherd's Chapel Guestbook Entry",
+          _template: "table",
+          _captcha: "false"
         })
-      }).catch(function () { /* offline or blocked; entry is still shown above */ });
+      }).catch(function () { /* offline or blocked */ });
     }
 
-    alert("Thank you for signing our guestbook! God bless you.");
+    document.getElementById("gb-name").value = "";
+    document.getElementById("gb-city").value = "";
+    document.getElementById("gb-msg").value = "";
+    alert("🙏 Blessings, and thank you for sharing your thoughts with our church family. "
+      + "Your entry has been gracefully forwarded to Reverend Marius for his review and personal "
+      + "blessing before it is posted. 🙏");
     return false;
   }
 
