@@ -59,7 +59,7 @@
         </p>
       </form>
       <p class="center"><font size="2" color="#cc99ff"><i>
-        (This is a demo guestbook &mdash; entries are saved right here in your browser!)
+        (Your blessing is sent privately to the Reverend &mdash; and shown below for you!)
       </i></font></p>
     </div>
 
@@ -94,6 +94,18 @@
 </div>
 
 <script type="text/javascript">
+  // ============================================================
+  //  GUESTBOOK EMAIL DELIVERY (Formspree)
+  //  Your email is NOT stored here. Only this form ID is, and it
+  //  means nothing on its own. To turn on email delivery:
+  //    1. Sign up free at https://formspree.io
+  //    2. Create a new form (point it at your own email).
+  //    3. Copy the form's endpoint (looks like the line below)
+  //       and paste your real form ID in place of YOUR_FORM_ID.
+  //  Until then, the guestbook still works (entries show below).
+  // ============================================================
+  var FORM_ENDPOINT = "https://formspree.io/f/YOUR_FORM_ID";
+
   var SAMPLE = [
     { name: "Martha B.", city: "Cedar Falls", msg: "Such a warm and welcoming congregation. The Reverend's sermon touched my heart!" },
     { name: "The Johnson Family", city: "Riverbend", msg: "Our little ones love the chapel. Come as you are is truly meant here. God bless!" },
@@ -136,6 +148,8 @@
     var city = document.getElementById("gb-city").value.trim();
     var msg = document.getElementById("gb-msg").value.trim();
     if (!msg) { alert("Please leave a message before signing!"); return false; }
+
+    // Show the entry right away for the visitor (retro guestbook feel)
     var list = load();
     list.unshift({ name: name, city: city, msg: msg });
     save(list);
@@ -143,6 +157,21 @@
     document.getElementById("gb-city").value = "";
     document.getElementById("gb-msg").value = "";
     render();
+
+    // Email the entry to the Reverend via Formspree (if configured)
+    if (FORM_ENDPOINT.indexOf("YOUR_FORM_ID") === -1 && window.fetch) {
+      fetch(FORM_ENDPOINT, {
+        method: "POST",
+        headers: { "Accept": "application/json", "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: name || "A Friend",
+          "visiting from": city,
+          message: msg,
+          _subject: "New Shepherd's Chapel Guestbook Entry"
+        })
+      }).catch(function () { /* offline or blocked; entry is still shown above */ });
+    }
+
     alert("Thank you for signing our guestbook! God bless you.");
     return false;
   }
