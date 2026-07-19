@@ -90,3 +90,84 @@ blockquote {
   padding-left: 14px;
 }
 img { max-width: 100%; height: auto; }
+
+/* ===== Newsletter-style collections (Church Activities / Our Staff) ===== */
+.nl-item {
+  border: 4px ridge #ffcc00;
+  background-color: #33265c;
+  padding: 14px;
+  margin: 16px 0;
+  text-align: center;
+}
+.nl-headline {
+  font-family: "Comic Sans MS", cursive, sans-serif;
+  color: #ffcc00;
+  font-size: 22px;
+  text-shadow: 1px 1px #cc0000;
+  display: inline-block;
+  margin: 6px 0;
+  text-decoration: none;
+}
+a.nl-headline:hover { color: #ffff66; background-color: #660066; }
+.nl-name {
+  font-family: "Comic Sans MS", cursive, sans-serif;
+  color: #66ff66;
+  font-size: 20px;
+  display: inline-block;
+  margin-top: 10px;
+  text-decoration: none;
+  text-shadow: 1px 1px #003300;
+}
+a.nl-name:hover { color: #ffff66; background-color: #660066; }
+.nl-thumb { border: 4px solid #000000; margin-top: 8px; cursor: pointer; }
+.backbtn {
+  display: inline-block;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bold;
+  color: #000000;
+  background-color: #ffcc00;
+  border: 3px outset #ffee88;
+  padding: 6px 14px;
+  text-decoration: none;
+}
+.backbtn:hover { background-color: #ffff66; border-style: inset; color: #660000; }
+.detail-img { border: 5px ridge #ffcc00; background-color: #000000; }
+.cap { color: #cc99ff; font-style: italic; font-size: 14px; }
+.grid3 { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; }
+.grid3 figure { width: 31%; min-width: 140px; margin: 0; }
+.grid3 img { width: 100%; border: 3px solid #000000; cursor: pointer; }
+.grid3 figcaption { color: #cc99ff; font-style: italic; font-size: 12px; margin-top: 4px; }
+/* Lightbox */
+.lightbox {
+  display: none;
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background-color: rgba(0,0,0,0.88);
+  z-index: 9999;
+  text-align: center;
+}
+.lightbox.open { display: block; }
+.lightbox-inner {
+  display: inline-block;
+  position: relative;
+  margin: 4% auto;
+  max-width: 90%;
+}
+.lightbox-inner img { max-width: 100%; max-height: 78vh; border: 5px ridge #ffcc00; }
+.lightbox-close {
+  position: absolute;
+  top: -16px; right: -16px;
+  width: 36px; height: 36px;
+  line-height: 30px;
+  border-radius: 50%;
+  background-color: #cc0000;
+  color: #ffffff;
+  border: 3px outset #ff6666;
+  font-family: Arial, sans-serif;
+  font-weight: bold;
+  font-size: 20px;
+  cursor: pointer;
+}
+.lightbox-close:hover { background-color: #ff0000; }
+.lightbox-cap { color: #ffff99; font-style: italic; margin-top: 10px; }

@@ -6,8 +6,8 @@
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Church activities and ministries at Reverend Marius' Shepherd's Chapel.">
-<title>* ~ Church Activities - Reverend Marius' Shepherd's Chapel ~ *</title>
+<meta name="description" content="Meet the staff and servants of Reverend Marius' Shepherd's Chapel.">
+<title>* ~ Our Staff - Reverend Marius' Shepherd's Chapel ~ *</title>
 <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
@@ -16,15 +16,15 @@
 
   <div class="banner">
     <marquee scrollamount="5" behavior="scroll" direction="left">
-      <font color="#ffcc00" size="4">&#129309; GATHER &#10014; GROW &#10014; SERVE &nbsp; &#10014; &nbsp; COME BE THE HANDS AND FEET OF SERVICE! &#129309;</font>
+      <font color="#ffcc00" size="4">&#128118; MEET THE FAITHFUL SERVANTS OF THE SHEPHERD'S CHAPEL &#128118;</font>
     </marquee>
   </div>
 
   <table width="100%" cellpadding="0" cellspacing="0" border="0">
     <tr>
       <td align="center" bgcolor="#000000" style="padding:14px;">
-        <h1 style="margin:6px;">&#128197; Church Activities &#128197;</h1>
-        <font color="#66ff66" face="Comic Sans MS">~ Living Out Our Faith Together ~</font>
+        <h1 style="margin:6px;">&#128100; Our Staff &#128100;</h1>
+        <font color="#66ff66" face="Comic Sans MS">~ The Hands And Feet Of Our Ministry ~</font>
       </td>
     </tr>
   </table>
@@ -39,12 +39,12 @@
 
   <div class="content">
 
-    <h2 class="center">&#10024; Our Activities &amp; Ministries &#10024;</h2>
-    <p class="center"><font size="2" color="#cc99ff"><i>Click a headline to read more about each activity.</i></font></p>
+    <h2 class="center">&#10024; Meet Our Staff &#10024;</h2>
+    <p class="center"><font size="2" color="#cc99ff"><i>Click a name to read more about each person.</i></font></p>
 
-    <!-- The list of activities is rendered here -->
+    <!-- The list of staff is rendered here -->
     <div id="nl-list"></div>
-    <!-- A single activity's detail view is rendered here -->
+    <!-- A single person's detail view is rendered here -->
     <div id="nl-detail" style="display:none;"></div>
 
     <div class="center">
@@ -83,31 +83,25 @@
 
 <script type="text/javascript">
   // ============================================================
-  //  ADD / EDIT ACTIVITIES HERE
-  //  Every field except "title" is optional. To add an activity,
-  //  put image files in the "images/" folder and copy a { ... }
-  //  block below. Remove the sample ones you don't want.
+  //  ADD / EDIT STAFF HERE
+  //  Every field except "title" (the person's name) is optional.
+  //  To add a person, put their photo in the "images/" folder and
+  //  copy a { ... } block below.
   // ============================================================
-  window.COLLECTION_OPTS = { kind: "activities" };
+  window.COLLECTION_OPTS = { kind: "staff" };
   window.COLLECTION = [
     {
-      title: "Community Outreach",
-      image: "images/chapel-v2.jpg",
-      caption: "Serving our neighbors on the chapel grounds",
-      text: "Serving our neighbors through food drives, visits to the homebound, and seasonal service days. This is how we turn quiet devotion into active community impact.",
+      title: "Reverend Marius Schmitz",
+      image: "images/reverend-v3.jpg",
+      caption: "Our Shepherd",
+      text: "Reverend Marius guides our congregation as we ground ourselves in timeless truth and equip one another to be the hands and feet of service.",
       gallery: [
-        { src: "images/chapel-v2.jpg", text: "The chapel on service day" },
-        { src: "images/artwork-river.jpg", text: "A gift of art for the auction" }
+        { src: "images/chapel-v2.jpg", text: "At the chapel" }
       ]
     },
     {
-      title: "Wednesday Bible Study",
-      image: "images/artwork-river.jpg",
-      text: "Grounding ourselves in timeless truth, one chapter at a time. Wednesdays at 7:00 PM. (This example has a main image and text, but no extra gallery images.)"
-    },
-    {
-      title: "Sunday Worship",
-      text: "Traditional, steadfast worship in the little white chapel on the hill. Sundays at 10:00 AM. (This example has only text — no images at all, and the page still works perfectly.)"
+      title: "(Add a staff member)",
+      text: "Edit staff.html to add real people here — a photo, their name, a short description, and any extra photos."
     }
   ];
 </script>
